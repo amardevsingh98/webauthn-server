@@ -9,7 +9,7 @@ cffi==1.15.1
 charset-normalizer==3.2.0
 click==8.1.5
 colorama==0.4.6
-conda==23.5.0
+conda==23.5.2
 conda-package-handling==2.0.2
 conda_package_streaming==0.8.0
 cryptography==41.0.2
@@ -21,12 +21,12 @@ idna==3.4
 jsonpatch==1.32
 jsonpointer==2.0
 packaging==23.1
-pip==23.1.2
+pip==23.2
 pluggy==1.2.0
 pycosat==0.6.4
 pycparser==2.21
 pydantic==1.10.11
-pydantic_core==2.1.2
+pydantic_core==2.3.0
 pyOpenSSL==23.2.0
 PySocks==1.7.1
 python-dotenv==1.0.0
