@@ -58,9 +58,9 @@ class RegistrationOptions(BaseModel):
     user_id: str
     user_name: str
     user_display_name: str
-    timeout: int
+    timeout: int = 60000
     authenticator_selection: AuthenticatorSelection
-    attestation: str
+    attestation: str = AttestationConveyancePreference.DIRECT,
 
 class RegisterCrendential(BaseModel):
     credential: Dict
@@ -72,7 +72,7 @@ class RegisterCrendential(BaseModel):
 
 class AuthenticationOptions(BaseModel):
    rp_id: str
-   timeout: int = 12000
+   timeout: int = 60000
    credential_id: str
    user_verification: str = UserVerificationRequirement.REQUIRED
 
@@ -95,7 +95,7 @@ def create_registration_credential_options(options: RegistrationOptions):
       user_id=options.user_id,
       user_name=options.user_name,
       user_display_name=options.user_display_name,
-      attestation=AttestationConveyancePreference.DIRECT,
+      attestation=options.attestation,
       authenticator_selection=options.authenticator_selection,
       challenge=secrets.token_hex(),
       timeout=12000,
