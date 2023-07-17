@@ -97,12 +97,12 @@ def create_registration_credential_options(options: RegistrationOptions):
       user_display_name=options.user_display_name,
       attestation=options.attestation,
       authenticator_selection=options.authenticator_selection,
-      challenge=secrets.token_hex(),
       timeout=options.timeout,
       supported_pub_key_algs=[COSEAlgorithmIdentifier.ECDSA_SHA_256, COSEAlgorithmIdentifier.RSASSA_PKCS1_v1_5_SHA_256],
     )
 
-    return registration_options
+    registration_options_json = options_to_json(registration_options)
+    return json.loads(registration_options_json)
   except Exception as e:
     print(str(e))
     raise HTTPException(status_code=500, detail={ 'detail': str(e) })
@@ -130,12 +130,12 @@ def create_authentication_options(options: AuthenticationOptions):
     print(options)
     authentication_options = generate_authentication_options(
        rp_id=options.rp_id,
-       challenge=secrets.token_hex(),
        timeout=options.timeout,
-       allow_credentials=[PublicKeyCredentialDescriptor(id=options.credential_id, transports=[AuthenticatorTransport.INTERNAL])],
+       allow_credentials=[PublicKeyCredentialDescriptor(id=base64url_to_bytes(options.credential_id), transports=[AuthenticatorTransport.INTERNAL])],
        user_verification=options.user_verification,
     )
-    return authentication_options
+    authentication_options_json = options_to_json(authentication_options)
+    return json.loads(authentication_options_json)
   except Exception as e:
     print(str(e))
     raise HTTPException(status_code=500, detail={ 'detail': str(e) })
