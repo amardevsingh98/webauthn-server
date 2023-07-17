@@ -26,16 +26,13 @@ from webauthn.helpers.structs import (
 import json
 import uvicorn
 import secrets
-import re
 
 # Define the CORS origins that are allowed to access your API
-pattern = r"project-exterior\.vercel\.app$"
-
 origins = [
     "http://localhost:3000",
     "http://localhost:8000",
     "http://dev.project-exterior.com",
-    re.compile(pattern=pattern)
+    "https://project-exterior.com"
 ]
 
 app = FastAPI()
@@ -44,6 +41,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+    allow_origin_regex='https://project-exterior-.*\.vercel\.app'
     allow_credentials=True,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
