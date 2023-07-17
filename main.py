@@ -98,7 +98,8 @@ def create_registration_credential_options(options: RegistrationOptions):
       attestation=options.attestation,
       authenticator_selection=options.authenticator_selection,
       challenge=secrets.token_hex(),
-      timeout=12000,
+      timeout=options.timeout,
+      supported_pub_key_algs=[COSEAlgorithmIdentifier.ECDSA_SHA_256, COSEAlgorithmIdentifier.RSASSA_PKCS1_v1_5_SHA_256],
     )
 
     return registration_options
