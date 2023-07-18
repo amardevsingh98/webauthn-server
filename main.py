@@ -49,8 +49,8 @@ app.add_middleware(
 
 class AuthenticatorSelection(BaseModel):
     authenticator_attachment: str
-    resident_key: str = 'required'
-    require_resident_key: bool = True
+    resident_key: str = ResidentKeyRequirement.PREFERRED
+    require_resident_key: bool = False
 
 class RegistrationOptions(BaseModel):
     rp_id: str
@@ -60,7 +60,7 @@ class RegistrationOptions(BaseModel):
     user_display_name: str
     timeout: int = 60000
     authenticator_selection: AuthenticatorSelection
-    attestation: str = AttestationConveyancePreference.DIRECT,
+    attestation: str = AttestationConveyancePreference.NONE,
 
 class RegisterCrendential(BaseModel):
     credential: Dict
@@ -74,7 +74,7 @@ class AuthenticationOptions(BaseModel):
    rp_id: str
    timeout: int = 60000
    credential_id: str
-   user_verification: str = UserVerificationRequirement.REQUIRED
+   user_verification: str = UserVerificationRequirement.PREFERRED
 
 class AuthenticationCredential(BaseModel):
     credential: Dict
